@@ -34,3 +34,49 @@ wire jump_signal;                // select signal of second mux
 wire [31:0] pc_shift_left_out;   // output of shift left for the pc -> goes into the 1 of the second mux
 
 assign and_out = branch_signal & alu_zero_out; // used as select signal of first mux after adder
+
+ctrlUnit control_mod(instruct[31:26], 
+					reg_destination, 
+					jump_signal, 
+					branch_signal, 
+					mem_read, 
+					mem_to_reg, 
+					mem_write, 
+					alu_src, 
+					reg_write, 
+					alu_op);								// control module
+
+shift_left shift_left_mod(sign_extend_out, shift_left_out);	// shift left module
+
+adder adder_mod(adder_out, pc_adder_out, shift_left_out);  // second adder module
+
+mux2_to_1_32bit mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	// first mux module
+
+mux2_to_1_32bit mux_mode_second(mux_out, pc_shift_left_out, jump_signal, pc_in); // second mux module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
