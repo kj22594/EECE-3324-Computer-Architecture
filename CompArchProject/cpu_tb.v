@@ -30,9 +30,18 @@ cpu         cpu_mod(instruct,
 			  mem_read,
 			  mem_write);
 
+
+
 // initialize clock for posedge
 initial begin
+	// initialize clock
 	clk = 0;
+
+	// initialize reset 
+	rst = 1;
+
+	// stop reset
+	#100 rst = 0;
 end
 
 // clock

@@ -47,13 +47,13 @@ reg_file          register_file(reg_write,clk,
 					alu_in_1,
 					alu_in_2);
 sign_extend       se(instruct[15:0],sign_extend_out);
-adder             pc_adder(pc_adder_out,pc_out,8'h4);
+adder             pc_adder(pc_adder_out,pc_out,32'h4);
 shift_left_pc     pc_shift_left(instruct[25:0],pc_adder_out,pc_shift_left_out);
 alu_control       alu_ctrl(alu_op,instruct[5:0],alu_ctrl_out);
-mux_2_to_1_32bit  alu_in_mux(pre_alu_in_2,sign_extend_out,alu_src,alu_in_2);
+mux2_to_1_32bit  alu_in_mux(pre_alu_in_2,sign_extend_out,alu_src,alu_in_2);
 alu               ALU(alu_result_out,alu_zero_out,alu_ctrl_out,alu_in_1,alu_in_2);
-mux_2_to_1_32bit  data_mem_out_mux(alu_result_out,data_out,mem_to_reg,write_data_in);
-ctrlUnit          control_mod(instruct[31:26], 
+mux2_to_1_32bit  data_mem_out_mux(alu_result_out,data_out,mem_to_reg,write_data_in);
+controlunit          control_mod(instruct[31:26], 
 					reg_destination, 
 					jump_signal, 
 					branch_signal, 

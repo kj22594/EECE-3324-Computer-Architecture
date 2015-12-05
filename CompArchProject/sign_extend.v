@@ -1,7 +1,6 @@
 module sign_extend(x,z);
 input [15:0] x; // non extended input
-output [31:0] z; // output extended  
-reg z;  
+output reg [31:0] z; // output extended  
 
 always @ (x) begin
  
