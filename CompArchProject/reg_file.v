@@ -10,7 +10,7 @@ module reg_file(input regWrite,
 
 reg [31:0] regFile [31:0];
 
-always@(readReg1 or readReg2 or regFile)
+always@(readReg1 or readReg2)
 begin
 	 readData1 <= regFile[readReg1];
 	 readData2 <= regFile[readReg2];

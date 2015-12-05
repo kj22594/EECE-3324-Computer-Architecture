@@ -1,7 +1,7 @@
-module cpu(instruct,clk,rst)
+module cpu(instruct,data_out,clk,rst,instruct_address,data_address,data_in,mem_read,mem_write);
 
 input [31:0] instruct;           // this will be the instruction that is given
-input [31:0] data_out            // from the memory file, will go into mux at the end
+input [31:0] data_out;           // from the memory file, will go into mux at the end
 input clk, rst;                  // needed for the program counter
 
 output [31:0] instruct_address;
@@ -47,7 +47,7 @@ reg_file          register_file(reg_write,clk,
 					alu_in_1,
 					alu_in_2);
 sign_extend       se(instruct[15:0],sign_extend_out);
-adder             pc_adder(pc_adder_out,pc_out,8'h00000004);
+adder             pc_adder(pc_adder_out,pc_out,8'h4);
 shift_left_pc     pc_shift_left(instruct[25:0],pc_adder_out,pc_shift_left_out);
 alu_control       alu_ctrl(alu_op,instruct[5:0],alu_ctrl_out);
 mux_2_to_1_32bit  alu_in_mux(pre_alu_in_2,sign_extend_out,alu_src,alu_in_2);
@@ -70,7 +70,7 @@ mux2_to_1_32bit   mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	// f
 mux2_to_1_32bit   mux_mode_second(mux_out, pc_shift_left_out, jump_signal, pc_in); // second mux module
 
 
-
+endmodule
 
 
 
