@@ -1,18 +1,16 @@
-module pc(x,clk,rst,z1,z2);
+module pc(x,clk,rst,z);
 input [31:0] x;
 input clk,rst;
-output reg [31:0] z1, z2;
+output reg [31:0] z;
 
 always @(posedge clk or posedge rst) begin
 	
 	if(rst) begin // reset to what the PC was at the beginning of the program
-		z1 <= 12288;
-		z2 <= 12288;
+		z <= 12288;
 	end
 
 	else begin
-		z1 <= x;
-		z2 <= x;
+		z <= x;
 	end
 end
 
