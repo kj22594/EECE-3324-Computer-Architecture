@@ -62,12 +62,12 @@ ctrlUnit          control_mod(instruct[31:26],
 					mem_write, 
 					alu_src, 
 					reg_write, 
-					alu_op);								// control module
+					alu_op);							
 
-shift_left        shift_left_mod(sign_extend_out, shift_left_out);	// shift left module
-adder             adder_mod(adder_out, pc_adder_out, shift_left_out);  // second adder module
-mux2_to_1_32bit   mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	// first mux module
-mux2_to_1_32bit   mux_mode_second(mux_out, pc_shift_left_out, jump_signal, pc_in); // second mux module
+shift_left        shift_left_mod(sign_extend_out, shift_left_out);	
+adder             adder_mod(adder_out, pc_adder_out, shift_left_out);  
+mux2_to_1_32bit   mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	
+mux2_to_1_32bit   mux_mode_second(mux_out, pc_shift_left_out, jump_signal, pc_in); 
 
 
 endmodule
