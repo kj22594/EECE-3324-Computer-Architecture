@@ -1,4 +1,4 @@
-module adder( output reg signed [31:0] addResult, 
+module adder( output reg [31:0] addResult, 
 			input signed [31:0] data_a, 
 			input signed [31:0] data_b 
 		);

@@ -33,9 +33,6 @@ wire [31:0] mux_out;             // output of the first mux that goes into the 0
 wire jump_signal;                // select signal of second mux
 wire [31:0] pc_shift_left_out;   // output of shift left for the pc -> goes into the 1 of the second mux
 
-assign and_out = branch_signal & alu_zero_out; // used as select signal of first mux after adder
-
-
 
 pc                program_counter(pc_in,clk,rst,pc_out);
 mux2_to_1_5bit    reg_file_mux(instruct[20:16],instruct[15:11],reg_destination,write_reg);
@@ -45,7 +42,7 @@ reg_file          register_file(reg_write,clk,
 					write_reg,
 					write_data_in,
 					alu_in_1,
-					alu_in_2);
+					pre_alu_in_2);
 sign_extend       se(instruct[15:0],sign_extend_out);
 adder             pc_adder(pc_adder_out,pc_out,32'h4);
 shift_left_pc     pc_shift_left(instruct[25:0],pc_adder_out,pc_shift_left_out);
@@ -67,8 +64,12 @@ controlunit          control_mod(instruct[31:26],
 shift_left        shift_left_mod(sign_extend_out, shift_left_out);	
 adder             adder_mod(adder_out, pc_adder_out, shift_left_out);  
 mux2_to_1_32bit   mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	
-mux2_to_1_32bit   mux_mode_second(mux_out, pc_shift_left_out, jump_signal, pc_in); 
+mux2_to_1_32bit   mux_mod_second(mux_out, pc_shift_left_out, jump_signal, pc_in); 
 
+assign and_out = branch_signal & alu_zero_out; // used as select signal of first mux after adder
+assign instruct_address = pc_out;
+assign data_address = alu_result_out;
+assign data_in = pre_alu_in_2;
 
 endmodule
 
