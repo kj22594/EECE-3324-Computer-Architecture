@@ -66,6 +66,12 @@ adder             adder_mod(adder_out, pc_adder_out, shift_left_out);
 mux2_to_1_32bit   mux_mod_first(pc_adder_out, adder_out, and_out, mux_out);	
 mux2_to_1_32bit   mux_mod_second(mux_out, pc_shift_left_out, jump_signal, pc_in); 
 
+always @ (instruct)
+begin
+	if(instruct == 8'hfc000000)
+		$stop;
+end
+
 assign and_out = branch_signal & alu_zero_out; // used as select signal of first mux after adder
 assign instruct_address = pc_out;
 assign data_address = alu_result_out;
